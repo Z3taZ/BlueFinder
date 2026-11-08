@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "836914007818",
+    "project_id": "blue-finder-b7cc2",
+    "storage_bucket": "blue-finder-b7cc2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836914007818:android:f2ad1fea921e97644534f3",
+        "android_client_info": {
+          "package_name": "com.example.bluefinder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAABDerFgVOWWthA8-K5RPjXrnJqII-8f8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

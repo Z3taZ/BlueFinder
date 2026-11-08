@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- Borde semi-transparente para definir la burbuja -->
+    <stroke
+        android:width="1.5dp"
+        android:color="#B3FFFFFF" />
+
+    <!-- Degradado radial suave para efecto de brillo transparente -->
+    <gradient
+        android:type="radial"
+        android:gradientRadius="60%"
+        android:startColor="#80FFFFFF"
+        android:centerColor="#33FFFFFF"
+        android:endColor="#1AFFFFFF"/>
+
+</shape>
