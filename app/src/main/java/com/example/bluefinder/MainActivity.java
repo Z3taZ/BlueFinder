@@ -65,7 +65,15 @@ public class MainActivity extends AppCompatActivity {
 
         //listeners de los botones
         this.btnLogin.setOnClickListener(v->loginUser());
+        this.btnInvitado.setOnClickListener(v->loginInvitado());
+    }
 
+    private void loginInvitado() {
+
+        Intent intent = new Intent(MainActivity.this,AppActivity.class);
+        intent.putExtra("Invitad@",true);
+        startActivity(intent);
+        finish();
     }
 
     private void loginUser() {
@@ -99,14 +107,13 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         //Pasamos a la pantalla con las credenciales ya logueadas
         if(user!=null){
-            MyShortToast("Iniciada la sesión correctamente");
             Intent intent = new Intent(MainActivity.this,AppActivity.class);
             startActivity(intent);
             finish();
 
             //El usuario debe loguearse
         }else{
-            MyLongToast("Debes identificarte");
+            MyShortToast("Debes identificarte");
         }
     }
 

@@ -33,12 +33,18 @@ public class AppActivity extends AppCompatActivity {
         //obtenemos el usuario actual (con el que se ha logueado el usuario)
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        //en caso de que no sea null, obtenemos su email
+        //en caso de que no sea null, obtenemos su email del logueo que haya realizado el usuario
         if(user != null){
+            MyShortToast("Iniciada la sesión correctamente");
             this.email.setText(user.getEmail());
         }
 
-
+        //En caso de que no se haya logueado y haya accedido con invitado
+        //Obtenemos el valor booleano asociado a la clave Invitad@. Si no existe, devuelve false
+        if(getIntent().getBooleanExtra("Invitad@",false)){
+            MyShortToast("Acceso como invitado realizado");
+            this.email.setText("Invitad@");
+        }
     }
 
     //Método para cerrar sesión
