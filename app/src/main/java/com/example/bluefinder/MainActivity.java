@@ -20,7 +20,7 @@ import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     //Creamos las variables necesarias
     //Variable Firebase
@@ -66,7 +66,11 @@ public class MainActivity extends AppCompatActivity {
         //listeners de los botones
         this.btnLogin.setOnClickListener(v->loginUser());
         this.btnInvitado.setOnClickListener(v->loginInvitado());
+        this.btnRegistro.setOnClickListener(v->goToRegister());
+
     }
+
+
 
     private void loginInvitado() {
 
@@ -107,9 +111,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         //Pasamos a la pantalla con las credenciales ya logueadas
         if(user!=null){
-            Intent intent = new Intent(MainActivity.this,AppActivity.class);
-            startActivity(intent);
-            finish();
+            goToApp();
 
             //El usuario debe loguearse
         }else{
@@ -117,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Método para validar los campos
+
+    //Método para validar los campos del MainActivity
     private boolean validateForm(String email, String password) {
 
         //verificamos que email no esté vacío
@@ -146,14 +149,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //Método para mostrar un toast largo
-    private void MyLongToast(String mensaje) {
-        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-    }
-
-    //Método para mostrar un toast corto
-    private void MyShortToast(String mensaje) {
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+    private void goToRegister() {
+        Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 
