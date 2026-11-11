@@ -52,4 +52,13 @@ dependencies {
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation("com.google.firebase:firebase-analytics")
 
+    // Añadir la dependencia de Realtime Database (¡NO escribir versión ni firebase-realtime!)
+    implementation("com.google.firebase:firebase-database")
+
+    // TODO: Add the dependencies for any other Firebase products you want to use
+    // See https://firebase.google.com/docs/android/setup#available-libraries
+    // For example, add the dependencies for Firebase Authentication and Cloud Firestore
+    implementation("com.google.firebase:firebase-auth")
+
+
 }

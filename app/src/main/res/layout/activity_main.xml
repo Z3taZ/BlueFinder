@@ -381,7 +381,11 @@
                     android:layout_weight="1"
                     android:text="Invitado"
                     android:textSize="12sp"
-                    app:backgroundTint="#4FC3F7" />
+                    app:backgroundTint="#0288D1"
+                    app:icon="@drawable/invitado"
+                    app:iconGravity="textStart"
+                    app:iconSize="24dp"
+                    app:iconTint="@null" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGoogle"
