@@ -1,6 +1,7 @@
 package com.example.bluefinder.Room;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.firebase.database.annotations.NotNull;
@@ -22,6 +23,12 @@ public class Usuario {
         this.uid = uid;
         this.email = email;
     }
+
+    //Room necesita un constructor sin argumentos. Pero hay que tener cuidado con esto
+    //ya que al haber más de un cosntructor room no sabrá cuál usar. Así que usamos la etiqueta
+    //ignore para ignorar este constructor
+    @Ignore
+    public Usuario() {}
 
     @NonNull
     public String getUid() { return uid; }

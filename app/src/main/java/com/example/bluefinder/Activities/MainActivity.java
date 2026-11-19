@@ -185,7 +185,7 @@ public class MainActivity extends BaseActivity {
     private void updateUI(FirebaseUser user) {
         // Pasamos a la pantalla con las credenciales ya logueadas
         if (user != null) {
-            guardarUsuarioLocal(user);
+            guardarUsuario(user); // Guardamos el usuario en la base de datos local y online
             goToApp();
         } else {
             MyShortToast("Debes identificarte");

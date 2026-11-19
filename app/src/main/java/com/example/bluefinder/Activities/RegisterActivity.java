@@ -65,7 +65,7 @@ public class RegisterActivity extends BaseActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Log.d(TAG, "createUserWithEmail:success");
-                        guardarUsuarioLocal(user); // Guardamos el usuario en la base de datos local
+                        guardarUsuario(user); // Guardamos el usuario en la base de datos local y online
                         MyShortToast("Te has registrado correctamente");
                         goToApp();
                     } else {
