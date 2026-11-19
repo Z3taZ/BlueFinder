@@ -1,4 +1,4 @@
-package com.example.bluefinder;
+package com.example.bluefinder.Activities;
 
 import static android.content.ContentValues.TAG;
 
@@ -8,11 +8,11 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.bluefinder.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -65,6 +65,7 @@ public class RegisterActivity extends BaseActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Log.d(TAG, "createUserWithEmail:success");
+                        guardarUsuarioLocal(user); // Guardamos el usuario en la base de datos local
                         MyShortToast("Te has registrado correctamente");
                         goToApp();
                     } else {
@@ -113,7 +114,7 @@ public class RegisterActivity extends BaseActivity {
 
     //Método para volver a MainActivity sin cerrar sesión ya que no hay ninguna sesión iniciada
     private void goBack() {
-        Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

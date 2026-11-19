@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BlueFinder">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AppActivity"
+            android:name=".Activities.AppActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activities.RegisterActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

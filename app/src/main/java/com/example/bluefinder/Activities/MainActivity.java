@@ -1,4 +1,4 @@
-package com.example.bluefinder;
+package com.example.bluefinder.Activities;
 
 import static android.content.ContentValues.TAG;
 
@@ -21,6 +21,7 @@ import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.exceptions.GetCredentialException;
 
+import com.example.bluefinder.R;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 import com.google.android.material.button.MaterialButton;
@@ -139,10 +140,6 @@ public class MainActivity extends BaseActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Log.d(TAG, "signInWithCredential:success");
-                        if (user != null) {
-                            //si user displayName es null, se muestra el email. Sino muestra displayName
-                            MyShortToast("Bienvenid@ " + (user.getDisplayName() != null ? user.getDisplayName() : user.getEmail()));
-                        }
                         updateUI(user);
                     } else {
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -188,6 +185,7 @@ public class MainActivity extends BaseActivity {
     private void updateUI(FirebaseUser user) {
         // Pasamos a la pantalla con las credenciales ya logueadas
         if (user != null) {
+            guardarUsuarioLocal(user);
             goToApp();
         } else {
             MyShortToast("Debes identificarte");
