@@ -17,6 +17,7 @@ public abstract class AppDataBase extends RoomDatabase {
     private static AppDataBase instancia;
 
 
+    //Método para crear la bd: solo se crea una vez
     public static synchronized AppDataBase getInstance(Context context) {
         if (instancia == null) {
             instancia = Room.databaseBuilder(

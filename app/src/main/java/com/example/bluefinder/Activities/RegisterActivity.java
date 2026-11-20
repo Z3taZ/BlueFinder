@@ -1,11 +1,7 @@
 package com.example.bluefinder.Activities;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -13,9 +9,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.bluefinder.R;
+import com.example.bluefinder.Controllers.AuthController;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends BaseActivity {
@@ -23,7 +19,7 @@ public class RegisterActivity extends BaseActivity {
     private TextInputEditText etEmail, etPassword, etConfirmPassword;
     private MaterialButton btnRegister,btnGoBack;
 
-    private FirebaseAuth mAuth;
+    private AuthController authController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +31,8 @@ public class RegisterActivity extends BaseActivity {
             return insets;
         });
 
-        this.mAuth = FirebaseAuth.getInstance();
+        this.authController = new AuthController();
+
         //mapeo las variables con el xml
         this.etEmail = findViewById(R.id.inEmailRegistro);
         this.etPassword = findViewById(R.id.inPasswordRegistro);
@@ -59,58 +56,49 @@ public class RegisterActivity extends BaseActivity {
         //Validamos que los campos no esten vacios y que sean compatibles
         if(!validateForm(email,password,confirmPassword)){return;}
 
-        //Registramos al usuario con Firebase
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        Log.d(TAG, "createUserWithEmail:success");
-                        guardarUsuario(user); // Guardamos el usuario en la base de datos local y online
-                        MyShortToast("Te has registrado correctamente");
-                        goToApp();
-                    } else {
-                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        MyLongToast("No te has podido registrar como usuario");
-                    }
-                });
+        authController.registrar(email, password, new AuthController.AuthListener() {
+            @Override
+            public void onExito(FirebaseUser user) {
+                guardarUsuario(user); // Guardamos el usuario en la base de datos local y online
+                MyShortToast("Te has registrado correctamente");
+                goToApp();
+            }
+
+            @Override
+            public void onError(String mensaje) {
+                MyLongToast(mensaje);
+            }
+        });
     }
 
     //Método para validar los campos del RegisterActivity
-    private boolean validateForm(String email, String password,String confirmPassword) {
+    private boolean validateForm(String email, String password, String confirmPassword) {
 
-        //verificamos que email no esté vacío
-        if(TextUtils.isEmpty(email)){
-            this.etEmail.setError("El campo no puede estar vacío");
-            MyLongToast("El campo Email no puede estar vacío");
+        String errorEmail = authController.validarEmail(email);
+        if (errorEmail != null) {
+            this.etEmail.setError(errorEmail);
+            MyLongToast(errorEmail);
             return false;
         }
 
-
-        //verificamos que contraseña no esté vacío
-        if(TextUtils.isEmpty(password)){
-            this.etPassword.setError("El campo no puede estar vacío");
-            MyLongToast("El campo Contraseña no puede estar vacío");
+        String errorPassword = authController.validarPassword(password);
+        if (errorPassword != null) {
+            this.etPassword.setError(errorPassword);
+            MyLongToast(errorPassword);
             return false;
         }
 
-        //verificamos que la longitud de la contraseña sea mayor a 6
-        if(password.length()<6){
-            this.etPassword.setError("La contraseña debe tener al menos 6 caracteres");
-            MyLongToast("La contraseña debe tener al menos 6 caracteres");
+        String errorConfirmacion = authController.validarConfirmacion(password, confirmPassword);
+        if (errorConfirmacion != null) {
+            this.etConfirmPassword.setError(errorConfirmacion);
+            MyLongToast(errorConfirmacion);
             return false;
         }
-
-        //verificamos que la contraseña y la confirmación de la contraseña sean iguales
-        if(!password.equals(confirmPassword)){
-            this.etConfirmPassword.setError("Las contraseñas no coinciden");
-            MyLongToast("Las contraseñas no coinciden");
-            return false;
-        }
-
-
 
         return true;
     }
+
+
 
     //Método para volver a MainActivity sin cerrar sesión ya que no hay ninguna sesión iniciada
     private void goBack() {

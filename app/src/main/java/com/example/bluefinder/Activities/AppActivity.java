@@ -5,9 +5,9 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 
+import com.example.bluefinder.Controllers.AuthController;
 import com.example.bluefinder.R;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AppActivity extends BaseActivity {
@@ -29,7 +29,7 @@ public class AppActivity extends BaseActivity {
         this.btnCerrarSesion.setOnClickListener(v->logOut());
 
         //obtenemos el usuario actual (con el que se ha logueado el usuario)
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = new AuthController().getUsuarioActual();
 
         //en caso de que no sea null, obtenemos su email del logueo que haya realizado el usuario
         if(user != null){
@@ -42,11 +42,5 @@ public class AppActivity extends BaseActivity {
             MyShortToast("Acceso como invitado realizado");
             this.email.setText("Invitad@");
         }
-
-
     }
-
-
-
-
 }
